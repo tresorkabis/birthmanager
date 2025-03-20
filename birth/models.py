@@ -3,28 +3,12 @@ from django.db import models
 # Create your models here.
 
 class Pays(models.Model):
-    id_pays = models.AutoField(primary_key = True)
     nom = models.CharField(max_length=50)
     
 class Ville(models.Model):
-    id_ville = models.AutoField(primary_key=True)
     nom = models.CharField(max_length=50)
-    pays =models.ForeignKey(Pays, on_delete=models.CASCADE)
+    pays = models.ForeignKey(Pays, on_delete=models.CASCADE)
 
-class Personne(models.Model):
-    id_personne =models.AutoField(primary_key=True)
-    nom = models.CharField(max_length=50)
-    postnom = models.CharField(max_length=50)
-    prenom = models.CharField(max_length=50)
-    sexe = models.CharField(max_length=1)
-    date_naisssance = models.DateField()
-    lieu_naissance = models.ForeignKey(Ville, on_delete=models.CASCADE)
-    pere = models.Foreignkey(Parent,on_delete=models.CASCADE)
-    mere = models.Foreignkey(Parent,on_delete=models.CASCADE)
-    medecin = models.Foreignkey(Medecin,on_delete=models.CASCADE)
-    ville = models.ForeignKey(Ville, on_delete=models.CASCADE, related_name='personnes_vivant')
-    enregistre_par = model.CharFielld(max_length=100, related_name='bourgmestre')
-    
 class Parent(models.Model):
     id_parent =models.AutoField(primary_key=True)
     nom = models.CharField(max_length=50)
@@ -39,13 +23,11 @@ class Parent(models.Model):
     telephone = models.CharField(max_length=15)
 
 class Hopital(models.Model):
-    id_hop = models.AutoField(primary_key=true)
     nom = models.CharField(max_length=50)
     adresse = models.CharField(max_length=200)
     ville = models.ForeignKey(Ville, on_delete=models.CASCADE)
-    
+
 class Medecin(models.Model):
-    id_medecin =models.AutoField(primary_key=True)
     nom = models.CharField(max_length=50)
     postnom = models.CharField(max_length=50)
     prenom = models.CharField(max_length=50)
@@ -53,3 +35,20 @@ class Medecin(models.Model):
     cnom = models.CharField(max_length=100)
     adresse = models.CharField(max_length=200)
     hopital = models.ForeignKey(Hopital, on_delete=models.CASCADE)
+
+class Personne(models.Model):
+    nom = models.CharField(max_length=50)
+    postnom = models.CharField(max_length=50)
+    prenom = models.CharField(max_length=50)
+    sexe = models.CharField(max_length=1)
+    date_naisssance = models.DateField()
+    lieu_naissance = models.ForeignKey(Ville, on_delete=models.CASCADE)
+    pere = models.Foreignkey(Parent,on_delete=models.CASCADE)
+    mere = models.Foreignkey(Parent,on_delete=models.CASCADE)
+    medecin = models.Foreignkey(Medecin,on_delete=models.CASCADE)
+    ville = models.ForeignKey(Ville, on_delete=models.CASCADE, related_name='personnes_vivant')
+    enregistre_par = models.CharFielld(max_length=100, related_name='bourgmestre')
+    
+
+
+    
