@@ -1,26 +1,36 @@
 from django.db import models
 
+from birth.utils import SEXES
+
 # Create your models here.
 
 class Pays(models.Model):
     nom = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.nom
     
 class Ville(models.Model):
     nom = models.CharField(max_length=50)
     pays = models.ForeignKey(Pays, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.nom
+
 class Parent(models.Model):
-    id_parent =models.AutoField(primary_key=True)
     nom = models.CharField(max_length=50)
     postnom = models.CharField(max_length=50)
     prenom = models.CharField(max_length=50)
-    sexe = models.CharField(max_length=1)
+    sexe = models.CharField(max_length=1, choices=SEXES)
     date_naisssance = models.DateField()
     lieu_naissance = models.CharField(max_length=50)
     role = models.CharField(max_length=30)
     profession = models.CharField(max_length=30)
-    adresse = models.CharField(max_length=200)
+    adresse = models.TextField()
     telephone = models.CharField(max_length=15)
+
+    def __str__(self):
+        return self.nom
 
 class Hopital(models.Model):
     nom = models.CharField(max_length=50)
