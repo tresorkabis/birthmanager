@@ -57,8 +57,9 @@ class Personne(models.Model):
     pere = models.ForeignKey(Parent,on_delete=models.CASCADE, related_name='pere')
     mere = models.ForeignKey(Parent,on_delete=models.CASCADE, related_name='mere')
     medecin = models.ForeignKey(Medecin,on_delete=models.CASCADE)
-    ville = models.ForeignKey(Ville, on_delete=models.CASCADE, related_name='personnes_vivant')
-    enregistre_par = models.ForeignKey(User, on_delete=models.CASCADE)
+    ville = models.ForeignKey(Ville, on_delete=models.CASCADE, null=True, blank=True)
+    enregistre_par = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='enregistre_par')
+    photo_url = models.ImageField(upload_to='photos/', blank=True, null=True)
     
 
 
