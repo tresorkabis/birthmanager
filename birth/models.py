@@ -1,6 +1,7 @@
 from django.db import models
 
 from birth.utils import SEXES
+from users.models import User
 
 # Create your models here.
 
@@ -53,11 +54,11 @@ class Personne(models.Model):
     sexe = models.CharField(max_length=1)
     date_naisssance = models.DateField()
     lieu_naissance = models.ForeignKey(Ville, on_delete=models.CASCADE)
-    pere = models.ForeignKey(Parent,on_delete=models.CASCADE)
-    mere = models.ForeignKey(Parent,on_delete=models.CASCADE)
+    pere = models.ForeignKey(Parent,on_delete=models.CASCADE, related_name='pere')
+    mere = models.ForeignKey(Parent,on_delete=models.CASCADE, related_name='mere')
     medecin = models.ForeignKey(Medecin,on_delete=models.CASCADE)
     ville = models.ForeignKey(Ville, on_delete=models.CASCADE, related_name='personnes_vivant')
-    # enregistre_par = models.CharField(max_length=100, related_name='bourgmestre')
+    enregistre_par = models.ForeignKey(User, on_delete=models.CASCADE)
     
 
 
