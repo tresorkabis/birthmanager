@@ -5,17 +5,19 @@ from django.contrib.auth.password_validation import validate_password
 User = get_user_model()
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
-    username = None
+    #username = None
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     password2= serializers.CharField(write_only=True, required=True)
 
     class Meta:
         model = User
-        fields = ( 'email', 'password', 'password2','noms', )
+        fields = ( 'email', 'password', 'password2','noms','profile','profile_picture','username')
         extra_kwargs = {
             'email': {'required': True, 'allow_blank': False},
+            'usename': {'required': True, 'allow_blank': False},
+            'profile': {'required': True},
             'noms': {'required': True, 'allow_blank': False},
-           ' password':{'write_only': True, 'required': True, 'validators': [validate_password]},
+            'password':{'write_only': True, 'required': True, 'validators': [validate_password]},
         }
 
     def validate(self, attrs):

@@ -36,7 +36,7 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 class User(AbstractUser):
-    username = None  # Disable username field
+    username =  models.CharField(max_length=255,unique=True)
     id = models.CharField(max_length=36, primary_key=True, default=generate_user_id, editable=False)
     email = models.EmailField(unique=True)
     profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
@@ -66,7 +66,7 @@ class User(AbstractUser):
     objects = CustomUserManager()
     
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name']  # Remove 'username' from here!
+    REQUIRED_FIELDS = []  # Remove 'username' from here!
 
     def __str__(self):
         return f'{self.first_name} {self.last_name} ({self.email})'
